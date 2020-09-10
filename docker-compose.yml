@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  app:
+    image: haskell
+    working_dir: /app
+    tty: true
+    container_name: flp
+    volumes:
+     - .:/app
