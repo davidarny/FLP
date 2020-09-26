@@ -27,8 +27,6 @@ main = do
        list1 <- readLn
        print (oddEven (do_my_list list1))
 
-      --  LOL moodle checks only first test o_0
-
        putStr "N2:"
        list2 <- readLn
        pos <- readLn
