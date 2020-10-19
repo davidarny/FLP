@@ -10,7 +10,8 @@ union' xs ys = fromList (Data.List.map mapper uniqueKeys)
     where
         unique = reverse . nub . reverse
         uniqueKeys = unique (Data.Map.keys(xs) ++ Data.Map.keys(ys))
-        mapper = (\v -> (v, fromJust (Data.Map.lookup v (Data.Map.union xs ys))))
+        unionOfMaps = fromList ((toList xs) ++ (toList ys))
+        mapper = (\v -> (v, fromJust (Data.Map.lookup v unionOfMaps)))
 
 keys' :: Map k a -> [k]
 keys' = foldrWithKey (\k _ ks -> k : ks) []
@@ -23,8 +24,10 @@ map' f xs
     | Data.Map.null xs = empty
     | otherwise = Data.Map.union mapHead mapTail
         where
-            headKey = fst (head (toList xs))
-            headValue = f (snd (head (toList xs)))
+            listMap = toList xs
+            listMapHead = head listMap
+            headKey = fst listMapHead
+            headValue = f (snd listMapHead)
             mapHead = fromList [(headKey, headValue)]
-            mapTail = map' f (fromList (tail (toList xs)))
+            mapTail = map' f (fromList (tail listMap))
 
