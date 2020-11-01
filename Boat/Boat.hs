@@ -19,8 +19,20 @@ from R = L
 type Position = Array Item Location
 
 -- начальная и целевая позиция
-startPosition = listArray (Wolf, Farmer) [L, L, L, L]
-goalPosition = listArray (Wolf, Farmer) [R, R, R, R]
+startPositionA = listArray (Wolf, Farmer) [L, L, L, L]
+goalPositionA = listArray (Wolf, Farmer) [R, R, R, R]
+
+startPositionB = listArray (Wolf, Farmer) [L, L, L, L]
+goalPositionB = listArray (Wolf, Farmer) [R, R, R, L]
+
+startPositionC = listArray (Wolf, Farmer) [L, L, R, L]
+goalPositionC = listArray (Wolf, Farmer) [R, R, R, R]
+
+startPositionD = listArray (Wolf, Farmer) [L, L, L, L]
+goalPositionD = listArray (Wolf, Farmer) [R, R, L, R]
+
+startPositionE = listArray (Wolf, Farmer) [L, R, L, L]
+goalPositionE = listArray (Wolf, Farmer) [R, R, R, R]
 
 -- неправильная позиция: без контроля человека остаются
 -- волк с козлом или козел с капустой
@@ -44,12 +56,44 @@ stepSolution sols =
 
 -- итеративный процесс построения возможных решений,
 -- для поиска среди них того, которое является ответом
-search :: [[Solution]]
-search = iterate stepSolution [[startPosition]]
+searchA :: [[Solution]]
+searchA = iterate stepSolution [[startPositionA]]
+
+searchB :: [[Solution]]
+searchB = iterate stepSolution [[startPositionB]]
+
+searchC :: [[Solution]]
+searchC = iterate stepSolution [[startPositionC]]
+
+searchD :: [[Solution]]
+searchD = iterate stepSolution [[startPositionD]]
+
+searchE :: [[Solution]]
+searchE = iterate stepSolution [[startPositionE]]
 
 -- нахождение первого решения, которое является ответом
-solution :: [Position]
-solution = head $ filter ((==goalPosition).head) $ concat $ search
+solutionA :: [Position]
+solutionA = head $ filter ((==goalPositionA).head) $ concat $ searchA
+
+solutionB :: [Position]
+solutionB = head $ filter ((==goalPositionB).head) $ concat $ searchB
+
+solutionC :: [Position]
+solutionC = head $ filter ((==goalPositionC).head) $ concat $ searchC
+
+solutionD :: [Position]
+solutionD = head $ filter ((==goalPositionD).head) $ concat $ searchD
+
+solutionE :: [Position]
+solutionE = head $ filter ((==goalPositionE).head) $ concat $ searchE
 
 -- вывод решения на экран
-showSolution = sequence $ map (putStrLn.show.assocs) solution
+showSolutionA = sequence $ map (putStrLn.show.assocs) solutionA
+
+showSolutionB = sequence $ map (putStrLn.show.assocs) solutionB
+
+showSolutionC = sequence $ map (putStrLn.show.assocs) solutionC
+
+showSolutionD = sequence $ map (putStrLn.show.assocs) solutionD
+
+showSolutionE = sequence $ map (putStrLn.show.assocs) solutionE
